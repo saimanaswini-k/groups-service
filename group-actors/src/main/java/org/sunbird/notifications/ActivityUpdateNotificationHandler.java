@@ -136,11 +136,10 @@ public class ActivityUpdateNotificationHandler implements INotificationHandler{
                     }
                 }
             } catch (JsonProcessingException e) {
-               // logger.error(reqContext,"No Service Class Configured");
+                logger.error(reqContext,"No Service Class Configured");
             }
         }
     }
-
     /**
      *  Create Notification Object
      * @param role
@@ -160,6 +159,7 @@ public class ActivityUpdateNotificationHandler implements INotificationHandler{
         Map<String,Object> template = getActivityTemplateObj(groupDetails, updatedBy, activity);
         actionData.put(JsonKey.TEMPLATE,template);
         actionData.put(JsonKey.TYPE,activityOp);
+        actionData.put(JsonKey.CATEGORY,JsonKey.GROUP);
         actionData.put(JsonKey.CREATED_BY, updatedBy);
         actionData.put(JsonKey.ADDITIONAL_INFO,getAdditionalInfo(groupDetails,role, activity));
         notification.setAction(actionData);
