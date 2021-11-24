@@ -127,7 +127,7 @@ public class UpdateGroupActorTest extends BaseActorTest {
 
     Request reqObj = updateGroupReq();
     subject.tell(reqObj, probe.getRef());
-    Response res = probe.expectMsgClass(Duration.ofSeconds(30), Response.class);
+    Response res = probe.expectMsgClass(Duration.ofSeconds(40), Response.class);
     Assert.assertTrue(null != res && res.getResponseCode() == 200);
   }
 
@@ -136,7 +136,7 @@ public class UpdateGroupActorTest extends BaseActorTest {
     TestKit probe = new TestKit(system);
     ActorRef subject = system.actorOf(props);
     subject.tell(getUpdateGroupReqForMaxMember(), probe.getRef());
-    Response res = probe.expectMsgClass(Duration.ofSeconds(100), Response.class);
+    Response res = probe.expectMsgClass(Duration.ofSeconds(50), Response.class);
     Assert.assertTrue(null != res && res.getResponseCode() == 200);
     Map error = (Map) res.getResult().get(JsonKey.ERROR);
     List errorList = (List) error.get(JsonKey.MEMBERS);
@@ -150,7 +150,7 @@ public class UpdateGroupActorTest extends BaseActorTest {
     TestKit probe = new TestKit(system);
     ActorRef subject = system.actorOf(props);
     subject.tell(getUpdateGroupReqForMaxActivity(), probe.getRef());
-    Response res = probe.expectMsgClass(Duration.ofSeconds(20), Response.class);
+    Response res = probe.expectMsgClass(Duration.ofSeconds(30), Response.class);
     Assert.assertTrue(null != res && res.getResponseCode() == 200);
     System.out.println(res.getResult().get(JsonKey.ERROR));
     Map error = (Map) res.getResult().get(JsonKey.ERROR);
@@ -486,7 +486,7 @@ public class UpdateGroupActorTest extends BaseActorTest {
     context.put(JsonKey.USER_ID, "user1");
     reqObj.setContext(context);
     reqObj.setOperation(ActorOperations.UPDATE_GROUP.getValue());
-    reqObj.getRequest().put(JsonKey.GROUP_NAME, "TestGroup Name1");
+    reqObj.getRequest().put(JsonKey.NAME, "TestGroup Name1");
 
     Map<String, List<Map<String, Object>>> memberOpearations = new HashMap<>();
     List<Map<String, Object>> members = new ArrayList<>();
@@ -541,7 +541,7 @@ public class UpdateGroupActorTest extends BaseActorTest {
     context.put(JsonKey.USER_ID, "user1");
     reqObj.setContext(context);
     reqObj.setOperation(ActorOperations.UPDATE_GROUP.getValue());
-    reqObj.getRequest().put(JsonKey.GROUP_NAME, "TestGroup");
+    reqObj.getRequest().put(JsonKey.NAME, "TestGroup");
     reqObj.getRequest().put(JsonKey.STATUS, "suspended");
     reqObj.getRequest().put(JsonKey.GROUP_ID, "group1");
     return reqObj;
@@ -554,7 +554,7 @@ public class UpdateGroupActorTest extends BaseActorTest {
     context.put(JsonKey.USER_ID, "userID22");
     reqObj.setContext(context);
     reqObj.setOperation(ActorOperations.UPDATE_GROUP.getValue());
-    reqObj.getRequest().put(JsonKey.GROUP_NAME, "TestGroup");
+    reqObj.getRequest().put(JsonKey.NAME, "TestGroup");
     reqObj.getRequest().put(JsonKey.STATUS, "suspended");
     reqObj.getRequest().put(JsonKey.GROUP_ID, "group1");
     return reqObj;
