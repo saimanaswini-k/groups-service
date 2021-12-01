@@ -19,12 +19,12 @@ Please run scripts/setup.sh and setup git hooks to format your code while submis
 
 ### Run 
 1. For debug mode, <br> 
-   `cd play-service` <br>
+   `cd service` <br>
    `mvn play2:dist`  <br>
    `mvn play2:run`
 
 2. For run mode, 
-   `cd play-service` <br>
+   `cd service` <br>
    `mvn play2:dist`  <br>
    `mvn play2:start`
 
