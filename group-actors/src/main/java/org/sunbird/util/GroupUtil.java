@@ -54,7 +54,7 @@ public class GroupUtil {
     Map<SearchServiceUtil, Map<String, String>> idClassTypeMap = new HashMap<>();
     for (Map<String, Object> activity : activities) {
       SearchServiceUtil searchUtil =
-          ActivityConfigReader.getServiceUtilClassName(getCaseInsensitiveType(activity));
+          ActivityConfigReader.getServiceUtilClassName((String) activity.get(JsonKey.TYPE));
       if (null != searchUtil) {
         if (idClassTypeMap.containsKey(searchUtil)) {
           Map<String, String> idActivityMap = idClassTypeMap.get(searchUtil);
@@ -144,12 +144,5 @@ public class GroupUtil {
             .map(data -> (String) data.get(JsonKey.USER_ID))
             .collect(Collectors.toList());
     return members;
-  }
-
-  private static String getCaseInsensitiveType(Map<String, Object> activity) {
-    String activityType = (String) activity.get(JsonKey.TYPE);
-    if(activityType.equals("eTextBook"))
-      return activityType;
-    return activityType.substring(0, 1).toUpperCase() + activityType.substring(1);
   }
 }
