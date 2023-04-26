@@ -11,8 +11,6 @@ import java.util.List;
 import java.util.Map;
 import org.sunbird.common.util.JsonKey;
 
-import static org.sunbird.util.GroupUtil.getCaseInsensitiveActivityList;
-
 public class ActivityConfigReader {
 
   private static LoggerUtil logger = new LoggerUtil(ActivityConfigReader.class);
@@ -46,7 +44,7 @@ public class ActivityConfigReader {
       List<Map<String, Object>> activitiesConfigList =
           (List<Map<String, Object>>) activityConfigMap.get(JsonKey.ACTIVITIES);
       for (Map<String, Object> config : activitiesConfigList) {
-        List<String> activityTypeList = getCaseInsensitiveActivityList((List<String>) config.get(JsonKey.TYPE));
+        List<String> activityTypeList = (List<String>) config.get(JsonKey.TYPE);
         Class<?> classType = Class.forName((String) config.get("serviceClass"));
         SearchServiceUtil searchServiceUtil = (SearchServiceUtil) classType.newInstance();
         for (String activityType : activityTypeList) {

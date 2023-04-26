@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.ArrayList;
 import java.util.stream.Collectors;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.MapUtils;
@@ -55,7 +54,7 @@ public class GroupUtil {
     Map<SearchServiceUtil, Map<String, String>> idClassTypeMap = new HashMap<>();
     for (Map<String, Object> activity : activities) {
       SearchServiceUtil searchUtil =
-          ActivityConfigReader.getServiceUtilClassName((String) activity.get(JsonKey.TYPE));
+          ActivityConfigReader.getServiceUtilClassName(getCaseInsensitiveType(activity));
       if (null != searchUtil) {
         if (idClassTypeMap.containsKey(searchUtil)) {
           Map<String, String> idActivityMap = idClassTypeMap.get(searchUtil);
@@ -146,13 +145,11 @@ public class GroupUtil {
             .collect(Collectors.toList());
     return members;
   }
-  public static List<String> getCaseInsensitiveActivityList(List<String> activitiesConfigList) {
-    List<String> newList = new ArrayList<>();
-    for (String activity : activitiesConfigList) {
-      newList.add(activity.toLowerCase());
-    }
-    return newList;
+
+  private static String getCaseInsensitiveType(Map<String, Object> activity) {
+    String activityType = (String) activity.get(JsonKey.TYPE);
+    if(activityType.equals("eTextBook"))
+      return activityType;
+    return activityType.substring(0, 1).toUpperCase() + activityType.substring(1);
   }
-
-
 }
