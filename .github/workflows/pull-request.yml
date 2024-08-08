@@ -8,7 +8,7 @@ on:
       - release-*
   
 jobs:
-  test-docker-build:
+  Docker-build:
     runs-on: ubuntu-latest
     steps:
       - name: Set up JDK 11
