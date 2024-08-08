@@ -6,7 +6,7 @@ on:
     branches:
       - master
       - release-*
-  
+
 jobs:
   Docker-build:
     runs-on: ubuntu-latest
@@ -41,9 +41,6 @@ jobs:
         with:
           name: group-service
           path: service/target/group-service-1.0.0-dist.zip
-          
-      - name: Checkout code
-        uses: actions/checkout@v4
 
       - name: Download build artifact
         uses: actions/download-artifact@v3
@@ -65,7 +62,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: ./service/target
-          file: ./Dockerfile 
+          file: ./Dockerfile
           push: true
           tags: |
-            ghcr.io/${{ github.repository_owner }}/notification-service:${{ github.ref_name }}
+            ghcr.io/${{ github.ref_name }}
