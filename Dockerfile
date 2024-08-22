@@ -1,4 +1,4 @@
-FROM eclipse-temurin:11-jdk
+FROM adoptopenjdk/openjdk11:alpine-slim
 
 RUN apk update \
     && apk add  unzip \
